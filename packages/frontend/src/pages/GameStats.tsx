@@ -27,7 +27,7 @@ const GameStats = () => {
           datasets: [{
             label: ' Nr. of played games',
             data: chartData,
-            backgroundColor: chartLabels.map((label) => stringToColor(label)),
+            backgroundColor: chartLabels.map((label) => stringToColor(label, 50)),
           }]
         }} options={{ maintainAspectRatio: true, plugins: { legend: { position: 'right' } } }} />
         <label>Game type distribution</label>
