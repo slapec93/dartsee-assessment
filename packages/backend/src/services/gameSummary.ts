@@ -9,10 +9,15 @@ type GameWithPlayers = Prisma.GameGetPayload<{
   }
 }>
 
+type GamePlayer = GameWithPlayers['gamePlayers'][number];
+type GamePlayerWithPlayer = GamePlayer & { player: NonNullable<GamePlayer['player']> };
+
+const hasPlayer = (gp: GamePlayer): gp is GamePlayerWithPlayer => gp.player !== null;
+
 const THROWS_PER_ROUND = 3;
 
 export const getGameSummary = async (id: string): Promise<GameSummary> => {
-  const gameId = parseInt(id);
+  const gameId = parseInt(id, 10);
   return prisma.game.findUnique({
     where: { id: gameId },
     include: {
@@ -42,15 +47,14 @@ export const getGameSummary = async (id: string): Promise<GameSummary> => {
 
 const extractPlayers = (game: GameWithPlayers): PlayerSummary[] => {
   return game.gamePlayers
-    .filter((gp): gp is typeof gp & { player: NonNullable<typeof gp.player> } => gp.player !== null)
+    .filter(hasPlayer)
     .map(gp => {
       const player = gp.player;
 
-      let roundCount = 0;
+      let roundCount = Math.ceil(player.throws.length / THROWS_PER_ROUND);
       let totalScore = 0;
       let missCount = 0;
       for (let i = 0; i < player.throws.length; i++) {
-        if (i % THROWS_PER_ROUND == 0) roundCount++;
         if (player.throws[i].modifier === 0) {
           missCount++;
           continue;
@@ -60,9 +64,9 @@ const extractPlayers = (game: GameWithPlayers): PlayerSummary[] => {
       return {
         id: player.id,
         name: player.name,
-        averageScorePerRound: (totalScore / roundCount) || 0,
+        averageScorePerRound: roundCount > 0 ? totalScore / roundCount : 0,
         missCount: missCount,
-        throws: player.throws.map(t => ({ x: t.x || -999, y: t.y || -999 })),
+        throws: player.throws.filter(t => t.x !== null && t.y !== null).map(t => ({ x: t.x!, y: t.y! })),
       };
     }).sort((a, b) => b.averageScorePerRound - a.averageScorePerRound);
 }

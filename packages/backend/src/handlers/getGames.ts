@@ -24,7 +24,7 @@ export const getGames = async (request: Request, response: Response) => {
         page,
         pageSize,
         total,
-        totalPages: Math.ceil(total / pageSize),
+        totalPages: Math.max(1, Math.ceil(total / pageSize)),
       },
     });
   } catch (error) {

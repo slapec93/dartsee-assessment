@@ -41,7 +41,7 @@ const ThrowMap = ({ throws, width = 500, customClassName }: Props) => {
     ctx.lineWidth = Math.max(1, 1 * s);
     throws.forEach(t => drawMark(ctx, t.x * s, t.y * s, markSize));
 
-  }, [throws, s, width]);
+  }, [throws, width]);
 
   return <canvas ref={canvasRef} width={width} height={width} style={{ width, height: width }} className={customClassName} />;
 };

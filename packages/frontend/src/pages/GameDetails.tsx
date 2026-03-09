@@ -9,14 +9,19 @@ import ThrowMap from "../components/ThrowMap";
 const GameDetails = () => {
   const params = useParams();
   const [game, setGame] = useState<GameSummary | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!params.id) {
-      return;
-    }
-    fetchGame(params.id).then(setGame);
+    if (!params.id) return;
+    fetchGame(params.id)
+      .then(setGame)
+      .catch(error => {
+        console.error('Error fetching game details:', error);
+        setError('Failed to load game.');
+      });
   }, [params.id]);
 
+  if (error) return <div>{error}</div>;
   if (!game) return <div>Loading...</div>;
 
   return (

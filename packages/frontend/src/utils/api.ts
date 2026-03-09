@@ -1,6 +1,5 @@
-import { GameSummary } from "@dartsee-assessment/shared";
+import { GameStat, GameSummary } from "@dartsee-assessment/shared";
 import Game from "../types/Game";
-import GameStat from "../types/GameStat";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 

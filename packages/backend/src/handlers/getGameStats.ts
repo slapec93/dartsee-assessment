@@ -1,4 +1,5 @@
 import { prisma } from "@/db";
+import { GameStat } from "@dartsee-assessment/shared";
 import { Request, Response } from "express";
 
 export const getGameStats = async (_request: Request, response: Response) => {
@@ -8,7 +9,7 @@ export const getGameStats = async (_request: Request, response: Response) => {
       _count: { id: true },
       orderBy: { _count: { id: 'desc' } },
     });
-    response.json(results.map(result => ({
+    response.json(results.map((result): GameStat => ({
       type: result.type || 'Unknown',
       count: result._count.id,
     })));
