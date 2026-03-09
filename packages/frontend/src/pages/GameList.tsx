@@ -19,7 +19,7 @@ const GameList = () => {
         setData(response);
       }
     });
-  }, [page]);
+  }, [page, setSearchParams]);
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({ page: String(newPage) });

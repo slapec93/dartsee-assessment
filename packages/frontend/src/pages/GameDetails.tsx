@@ -28,7 +28,7 @@ const GameDetails = () => {
           <div className="flex flex-row items-center border-1 rounded-lg border-gray-100 p-8 shadow-md" key={player.id}>
             <User className="w-32 h-32" style={{ color: stringToColor(player.name) }} />
             <div className="flex flex-col gap-2 ml-8">
-              <p><b>Name:</b> {player.name}</p>
+              <p><b>Name:</b> {player.name || 'Unknown player'}</p>
               <p><b>Average score per round:</b> {player.averageScorePerRound.toFixed(2)}</p>
               <p><b>Missed throws:</b> {player.missCount}</p>
             </div>

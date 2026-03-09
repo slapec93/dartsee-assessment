@@ -27,7 +27,7 @@ const ThrowMap = ({ throws, width = 500, customClassName }: Props) => {
     canvas.height = width * dpr;
     ctx.scale(dpr, dpr);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, width, width);
 
     const cx = BOARD_CENTER * s;
     const cy = BOARD_CENTER * s;
