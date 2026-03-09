@@ -5,6 +5,7 @@ import { fetchGame } from "../utils/api";
 import User from "../components/Icons/User";
 import stringToColor from "../utils/stringToColor";
 import ThrowMap from "../components/ThrowMap";
+import TypeTag from "../components/TypeTag";
 
 const GameDetails = () => {
   const params = useParams();
@@ -27,7 +28,7 @@ const GameDetails = () => {
   return (
     <div className="flex flex-col items-center px-16">
       <h1 className="pt-8 pb-4 font-black text-3xl">Game #{game.id}</h1>
-      <h2 className="pt-4 pb-8 font-bold text-xl"><b className="font-black">Type:</b> {game.type}</h2>
+      <h2 className="pt-4 pb-8 font-bold text-xl"><b className="font-black">Type:</b> <TypeTag type={game.type || 'Unknown'} /></h2>
       <div className="flex flex-col gap-4 w-full">
         {game.players.map((player) => (
           <div className="flex flex-row items-center border-1 rounded-lg border-gray-100 p-8 shadow-md" key={player.id}>

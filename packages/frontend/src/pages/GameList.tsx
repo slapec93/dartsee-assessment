@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchGames, PaginatedResponse } from '../utils/api';
 import Game from '../types/Game';
 import Paginator from '../components/Paginator';
-import stringToColor from '../utils/stringToColor';
+import TypeTag from '../components/TypeTag';
 
 const GameList = () => {
   const navigate = useNavigate();
@@ -41,13 +41,11 @@ const GameList = () => {
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
         {data.data.map((game) => {
           const gameType = game.type ?? 'Unknown';
-          const tagColor = stringToColor(gameType);
-          const tagBg = stringToColor(gameType, 90);
 
           return (
             <div className='flex flex-col items-center border-1 rounded-lg border-gray-100 py-8 shadow-md hover:shadow-lg' key={game.id} onClick={() => navigate(`/games/${game.id}`)} style={{ cursor: 'pointer' }}>
               <p className='font-bold'>Game #{game.id}</p>
-              <p className='border-1 rounded-md px-2 mt-2' style={{ color: tagColor, borderColor: tagColor, backgroundColor: tagBg }}>{gameType}</p>
+              <TypeTag type={gameType} />
             </div>
           )
         })}
