@@ -11,7 +11,13 @@ const GameList = () => {
   const [data, setData] = useState<PaginatedResponse<Game> | null>(null);
 
   useEffect(() => {
-    fetchGames(page).then(setData);
+    fetchGames(page).then(response => {
+      if (page > response.pagination.totalPages) {
+        setSearchParams({ page: String(response.pagination.totalPages) });
+      } else {
+        setData(response);
+      }
+    });
   }, [page]);
 
   const handlePageChange = (newPage: number) => {
