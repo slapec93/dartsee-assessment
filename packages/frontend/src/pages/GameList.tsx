@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchGames, PaginatedResponse } from '../utils/api';
 import Game from '../types/Game';
 import Paginator from '../components/Paginator';
 
 const GameList = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') ?? '1');
   const [data, setData] = useState<PaginatedResponse<Game> | null>(null);
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetchGames(page).then(setData);
   }, [page]);
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: String(newPage) });
+  };
 
   if (!data) return <div>Loading...</div>;
 
@@ -26,7 +31,7 @@ const GameList = () => {
           </div>
         ))}
       </div>
-      <Paginator page={data.pagination.page} totalPages={data.pagination.totalPages} onPageChange={setPage} />
+      <Paginator page={data.pagination.page} totalPages={data.pagination.totalPages} onPageChange={handlePageChange} />
     </div>
   );
 };

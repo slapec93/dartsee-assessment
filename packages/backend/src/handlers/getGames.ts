@@ -1,20 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import { PrismaClient } from '@prisma/client';
-
-export const prisma = new PrismaClient();
+import { Request, Response } from "express";
+import { prisma } from "./../db";
 
 const MAX_PAGE_SIZE = 100;
 const DEFAULT_PAGE_SIZE = 20;
 
-const app = express();
-const PORT = process.env.PORT ?? 3001;
-
-app.use(cors());
-app.use(express.json());
-
-
-app.get('/games', async (request, response) => {
+export const getGames = async (request: Request, response: Response) => {
   const page = parseInt(request.query.page as string) || 1;
   const pageSize = Math.min(MAX_PAGE_SIZE, parseInt(request.query.pageSize as string) || DEFAULT_PAGE_SIZE);
 
@@ -36,8 +26,5 @@ app.get('/games', async (request, response) => {
       totalPages: Math.ceil(total / pageSize),
     },
   });
-});
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});

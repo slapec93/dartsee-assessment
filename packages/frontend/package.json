@@ -7,8 +7,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dartsee-assessment/shared": "workspace:*",
     "@tailwindcss/vite": "^4.2.1",
+    "chart.js": "^4.5.1",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
     "tailwindcss": "^4.2.1"
