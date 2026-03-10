@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     globals: true,
     clearMocks: true,
-    exclude: ['node_modules', 'dist', 'prisma/**', 'src/tests/e2e/**'],
+    include: ['src/tests/e2e/**/*.test.ts'],
   },
   resolve: {
     alias: {

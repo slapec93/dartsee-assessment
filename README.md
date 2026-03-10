@@ -4,7 +4,7 @@ This repository contains my solution for take-home assignment for Dartsee. The p
 
 ## Pre-requisites
 
-- Node.js (version 14 or higher)
+- Node.js
 - pnpm (package manager)
 - [Overmind](https://github.com/DarthSim/overmind) (for running the whole application with a single command)
 
@@ -35,6 +35,16 @@ All requested features have been implemented, including:
     - Number of missed throws
 - Game statistics view with a pie chart
 - The +1 feature is a throw map next to each player in the game details view, showing the distribution of their throws across the board.
+
+## Running Test Suite
+
+To run the test suite, use the following command:
+
+```bash
+pnpm test
+pnpm test:e2e
+```
+
 
 ## Further improvement options
 

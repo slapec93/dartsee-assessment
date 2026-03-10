@@ -10,11 +10,10 @@ export const getGameStats = async (_request: Request, response: Response) => {
       orderBy: { _count: { id: 'desc' } },
     });
     response.json(results.map((result): GameStat => ({
-      type: result.type || 'Unknown',
+      type: result.type || 'unknown',
       count: result._count.id,
     })));
   } catch (error) {
-    console.error('Error fetching game stats:', error);
     response.status(500).json({ error: 'Internal Server Error' });
   }
 }
