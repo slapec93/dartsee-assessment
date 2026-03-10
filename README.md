@@ -49,3 +49,6 @@ pnpm test:e2e
 ## Further improvement options
 
 - Move the Pie chart to a separate component and make it reusable across the application. Since it's only used in one place, I decided to keep it in the same file for simplicity.
+- There are some tests on the frontend demonstrating how I would write tests, but it could definitely take more test coverage.
+- A nicer loading state could be implemented, right now it's just a simple text.
+- Rendering the throw map could be optimized by showing the map on demand (e.g. on hover, or in a modal).

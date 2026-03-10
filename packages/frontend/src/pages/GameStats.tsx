@@ -9,15 +9,15 @@ type ChartState = {
 };
 
 const GameStats = () => {
-  const [chart, setChart] = useState<ChartState>({ data: [], labels: [] });
+  const [chart, setChart] = useState<ChartState | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchGameStats()
       .then((response) => {
         setChart({
-          data: response.map((stat) => stat.count),
-          labels: response.map((stat) => stat.type),
+          data: response.map(stat => stat.count),
+          labels: response.map(stat => stat.type),
         });
       }).catch((error) => {
         console.error('Error fetching game stats:', error);
@@ -26,6 +26,7 @@ const GameStats = () => {
   }, []);
 
   if (error) return <div>{error}</div>;
+  if (!chart) return <div>Loading...</div>;
 
   return (
     <div className="game-stats flex flex-col items-center px-16">
